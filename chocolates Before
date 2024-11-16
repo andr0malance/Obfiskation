@@ -1,0 +1,45 @@
+using System;
+using System.Linq.Expressions;
+
+class Program
+{
+    /*Суть кода такова: Пользователь вводит сумму денег, стоимость 1 плитки шоколада и количество оберток, за которое можно получить доп. шоколад и проверяется условие.
+     * Затем вычисляется количество шоколадок, доступных к приобретению, количество оберток делится на количество оберток необходимых для получения доп шоколадок.
+     * Вычисляется общее число полученных шоколадок и выводится на экран
+    */
+    static void Main()
+    {
+        Console.WriteLine("Введите количество денег: ");
+        int money = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Введите стоимость шоколада: ");
+        int price = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Введите количество оберток необходимых для получения шоколада: ");
+        int wrap = Convert.ToInt32(Console.ReadLine());
+        if (wrap == 1)
+        {
+            Console.WriteLine("Недопустимое значение");
+        }
+        int totalChocolates = CalculateMaxChocolates(money, price, wrap);
+
+        Console.WriteLine("Максимально возможное количество шоколадок: " + totalChocolates);
+    }
+
+    static int CalculateMaxChocolates(int money, int price, int wrap)
+    {
+
+        int choco = money / price;
+        int wrappers = choco;
+
+
+        while (wrappers >= wrap)
+        {
+
+            int newChocolates = wrappers / wrap;
+            choco = choco + newChocolates;
+            wrappers = newChocolates + (wrappers % wrap);
+        }
+
+        return choco;
+    }
+
+}
